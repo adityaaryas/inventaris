@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Api\ItemController;
-use App\Http\Controllers\stockEntryController;
-use App\Http\Controllers\stockExistControler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\stockExistControler;
+use App\Http\Controllers\stockEntryController;
+use App\Http\Controllers\Api\CategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
