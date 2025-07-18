@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ItemController;
-use App\Http\Controllers\stockExistControler;
-use App\Http\Controllers\stockEntryController;
+use App\Http\Controllers\StockExistControler;
+use App\Http\Controllers\StockEntryController;
 use App\Http\Controllers\Api\CategoryController;
 
 Route::get('/user', function (Request $request) {
@@ -20,9 +20,17 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
-        Route::apiResource('categories', CategoryController::class);
-        Route::apiResource('items', ItemController::class);
-        Route::apiResource('stock-entries', stockEntryController::class);
-        Route::apiResource('stock-exits', stockExistControler::class);
+        // Category routes
+         Route::apiResource('categories', CategoryController::class);
+         Route::get('categories/with-items', [CategoryController::class, 'withItems']);
+         Route::get('categories/with-count', [CategoryController::class, 'withCount']);
+        
+        // Item routes
+         Route::apiResource('items', ItemController::class)->except('show');
+         Route::get('items/low-stock', [ItemController::class, 'lowStock']);
+         Route::patch('items/{id}/stock', [ItemController::class, 'updateStock']); 
+
+        Route::apiResource('stock-entries', StockEntryController::class);
+        Route::apiResource('stock-exits', StockExistControler::class);
     });
 });

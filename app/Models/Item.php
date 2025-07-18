@@ -28,6 +28,16 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function stockEntries()
+    {
+        return $this->hasMany(StockEntry::class);
+    }
+    public function stockExits()
+    {
+        return $this->hasMany(StockEntry::class);
+    }
+    
+
     public function getIsLowStockAttribute()
     {
         return $this->stock <= $this->min_stock;
